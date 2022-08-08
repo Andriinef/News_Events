@@ -2,4 +2,4 @@ venv
 .idea
 */*.pyc
 */*.djcache
-
+__pycache__
