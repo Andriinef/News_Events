@@ -6,7 +6,9 @@ from .models import *
 
 
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'created_at', 'updated_at', 'is_published', 'cat_id')        # time_create', 'get_html_photo',
+    # time_create', 'get_html_photo',
+    list_display = ('id', 'title', 'created_at',
+                    'updated_at', 'is_published', 'cat_id')
     list_display_links = ('id', 'title')
     search_fields = ('title', 'content')
     list_editable = ('is_published',)
@@ -29,5 +31,5 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
-admin.site.register (NewsEvents, NewsAdmin)
+admin.site.register(NewsEvents, NewsAdmin)
 admin.site.register(Category, CategoryAdmin)
