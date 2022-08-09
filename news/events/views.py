@@ -7,7 +7,7 @@ from .models import *
 
 # Create your views here.
 def index(request):
-  news = NewsEvents.objects.order_by('-created_at')
+  news = NewsEvents.objects.all()
   context = {'news': news,
             'titel': 'Сисок новостей'
   }
