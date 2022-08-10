@@ -10,7 +10,16 @@ from .models import *
 
 def index(request):
     news = NewsEvents.objects.all()
+    categories = Category.objects.all()
     context = {'news': news,
-               'titel': 'Сисок новостей'
+               'title': 'ІНФОРМАЦІЙНЕ АГЕНТСТВ',
+               'categories': categories,
                }
-    return render(request, 'events/index.html', context)
+    return render(request, template_name='events/index.html', context=context)
+
+
+def get_category(request, category_id):
+  news = NewsEvents.objects.filter(cat_id=category_id)
+  categories = Category.objects.all()
+  category = Category.objects.get(pk=category_id)
+  return render(request, 'events/category.html', {'news': news, 'categories': categories, 'category': category})
