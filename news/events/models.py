@@ -1,5 +1,5 @@
-from turtle import title
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -19,6 +19,9 @@ class NewsEvents(models.Model):
     cat = models.ForeignKey(
         'Category', on_delete=models.PROTECT, verbose_name="Категорії")
 
+    def get_absolute_url(self):
+        return reverse("view_news", kwargs={"news_id": self.pk})
+
     def __str__(self):
         return self.title
 
@@ -33,6 +36,9 @@ class Category(models.Model):
         max_length=100, db_index=True, verbose_name="Категорія")
     slug = models.SlugField(max_length=255, unique=True,
                             db_index=True, verbose_name="URL")
+
+    def get_absolute_url(self):
+        return reverse("category", kwargs={"category_id": self.pk})
 
     def __str__(self):
         return self.name

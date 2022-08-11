@@ -1,0 +1,17 @@
+{% load news_tags %}
+
+<!-- <div class="list-group">
+  {% get_list_categories as categories %}
+  {% for item in categories %}
+  <div class="card mt-3">
+    <a
+      href="{% url 'category' item.pk %}"
+      class="list-group-item list-group-item-action"
+    >
+      {{ item.name }}
+    </a>
+  </div>
+  {% endfor %}
+</div> -->
+
+{% show_categories arg1="Новини" arg2=""%}

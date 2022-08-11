@@ -1,0 +1,13 @@
+<div class="list-group">
+    {{ arg1 }} : {{ arg2 }}
+    {% for item in categories %}
+    <div class="card mt-2">
+      <a
+        href="{{ item.get_absolute_url }}"
+        class="list-group-item list-group-item-action"
+      >
+        {{ item.name }}
+      </a>
+    </div>
+    {% endfor %}
+  </div>
