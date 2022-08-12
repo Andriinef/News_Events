@@ -2,28 +2,87 @@ from asyncio import events
 from gc import get_objects
 from multiprocessing import context
 from urllib import request
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
 
 
-from .models import *
+from .models import NewsEvents, Category
+from .form import NewsForm
 
 # Create your views here.
 
 
-def index(request):
-    news = NewsEvents.objects.all()
-    context = {'news': news,
-               'title': 'ІНФОРМАЦІЙНЕ АГЕНТСТВ',
-               }
-    return render(request, template_name='events/index.html', context=context)
+class HomeNews(ListView):
+    model = NewsEvents
+    # template_name = "events/index.html"
+    context_object_name = "news"
+    # extra_context = {"title": "ІНФОРМАЦІЙНЕ АГЕНТСТВ"}
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "ІНФОРМАЦІЙНЕ АГЕНТСТВ"
+        return context
+
+    def get_queryset(self):
+        return NewsEvents.objects.filter(is_published=True)
 
 
-def get_category(request, category_id):
-  news = NewsEvents.objects.filter(cat_id=category_id)
-  category = Category.objects.get(pk=category_id)
-  return render(request, 'events/category.html', {'news': news, 'category': category})
+# def index(request):
+#     news = NewsEvents.objects.all()
+#     context = {'news': news,
+#                'title': 'ІНФОРМАЦІЙНЕ АГЕНТСТВ',
+#                }
+#     return render(request, template_name='events/index.html', context=context)
 
-def view_news(request, news_id):
-  # news_item = NewsEvents.objects.get(pk=news_id)
-  news_item = get_object_or_404(NewsEvents, pk=news_id)
-  return render(request, "events/view_news.html", {"news_item": news_item})
+
+class NewsByCategory(ListView):
+    model = NewsEvents
+    template_name = "events/category.html"
+    context_object_name = "news"
+    allow_empty = False
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = Category.objects.get(pk=self.kwargs["category_id"])
+        return context
+
+    def get_queryset(self):
+        return NewsEvents.objects.filter(cat_id=self.kwargs["category_id"], is_published=True)
+
+
+# def get_category(request, category_id):
+#     news = NewsEvents.objects.filter(cat_id=category_id)
+#     category = Category.objects.get(pk=category_id)
+#     return render(request, 'events/category.html', {'news': news, 'category': category})
+
+
+class ViewNews(DetailView):
+    model = NewsEvents
+    context_object_name = "news_item"
+    # pk_url_kwarg = "news_id"
+
+
+# def view_news(request, news_id):
+#     # news_item = NewsEvents.objects.get(pk=news_id)
+#     news_item = get_object_or_404(NewsEvents, pk=news_id)
+#     return render(request, "events/view_news.html", {"news_item": news_item})
+
+
+class CreateNews(CreateView):
+    form_class = NewsForm
+    template_name = "events/add_news.html"
+    # success_url = reverse_lazy("home")
+
+
+# def add_news(request):
+#     if request.method == "POST":
+#         form = NewsForm(request.POST)
+#         if form.is_valid():
+#             # print(form.cleaned_data)
+#             #news = NewsEvents.objects.create(**form.cleaned_data)
+#             news = form.save()
+#             return redirect(news)
+#     else:
+#         form = NewsForm()
+#     return render(request, 'events/add_news.html', {"form": form})

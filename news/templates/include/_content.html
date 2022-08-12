@@ -1,0 +1,30 @@
+{% for item in news %}
+<div class="card mt-3">
+  <div class="card-header">
+    Категорія:
+    <a href="{{ item.cat.get_absolute_url }}">{{ item.cat }}</a>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ item.title }}</h5>
+    {% if item.photo %}
+    <img
+      src="{{ item.photo.url }}"
+      alt=""
+      width="350"
+      class="float-left mr-3"
+    />
+    {% endif %}
+    <div class="media-body">
+      <p class="card-text">
+        {{ item.content|safe|linebreaks|truncatewords:75 }}
+      </p>
+      <a href="{{ item.get_absolute_url }}" class="btn btn-primary"
+        >Читати далі...</a
+      >
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    {{ item.created_at|date:"d-m-Y H:i" }}
+  </div>
+</div>
+{% endfor %}
