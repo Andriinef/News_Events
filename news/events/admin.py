@@ -6,15 +6,16 @@ from .models import *
 
 
 class NewsAdmin(admin.ModelAdmin):
-    # time_create', 'get_html_photo',
-    list_display = ('id', 'title', 'created_at',
-                    'updated_at', 'is_published', 'cat_id')
-    list_display_links = ('id', 'title')
-    search_fields = ('title', 'content')
-    list_editable = ('is_published',)
+    list_display = ("id", "title", "created_at", "get_html_photo",
+                    "updated_at", "is_published", "cat_id")
+    list_display_links = ("id", "title")
+    search_fields = ("title", "content")
+    list_editable = ("is_published",)
     prepopulated_fields = {"slug": ("title",)}
-    # fields = ('title', 'slug', 'cat', 'content', 'photo', 'get_html_photo', 'is_published', 'time_create', 'time_update')
-    # readonly_fields = ('time_create', 'time_update', 'get_html_photo')
+    fields = ("title", "slug", "cat", "content",
+              "photo", "get_html_photo", "views", "is_published", "created_at", "updated_at")
+    readonly_fields = ("get_html_photo", "views", "created_at", "updated_at")
+    save_on_top = True
 
     def get_html_photo(self, object):
         if object.photo:
@@ -24,9 +25,9 @@ class NewsAdmin(admin.ModelAdmin):
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
-    list_display_links = ('id', 'name')
-    search_fields = ('name',)
+    list_display = ("id", "name")
+    list_display_links = ("id", "name")
+    search_fields = ("name",)
     prepopulated_fields = {"slug": ("name",)}
 
 

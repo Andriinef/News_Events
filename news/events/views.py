@@ -5,15 +5,17 @@ from urllib import request
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from .models import NewsEvents, Category
 from .form import NewsForm
+from .utils import DataMixin
 
 # Create your views here.
 
 
-class HomeNews(ListView):
+class HomeNews(DataMixin, ListView):
     model = NewsEvents
     # template_name = "events/index.html"
     context_object_name = "news"
@@ -25,18 +27,18 @@ class HomeNews(ListView):
         return context
 
     def get_queryset(self):
-        return NewsEvents.objects.filter(is_published=True)
+        return NewsEvents.objects.filter(is_published=True).select_related("cat")
 
 
 # def index(request):
 #     news = NewsEvents.objects.all()
-#     context = {'news': news,
-#                'title': 'ІНФОРМАЦІЙНЕ АГЕНТСТВ',
+#     context = {"news": news,
+#                "title": "ІНФОРМАЦІЙНЕ АГЕНТСТВ",
 #                }
-#     return render(request, template_name='events/index.html', context=context)
+#     return render(request, template_name="events/index.html", context=context)
 
 
-class NewsByCategory(ListView):
+class NewsByCategory(DataMixin, ListView):
     model = NewsEvents
     template_name = "events/category.html"
     context_object_name = "news"
@@ -48,13 +50,13 @@ class NewsByCategory(ListView):
         return context
 
     def get_queryset(self):
-        return NewsEvents.objects.filter(cat_id=self.kwargs["category_id"], is_published=True)
+        return NewsEvents.objects.filter(cat_id=self.kwargs["category_id"], is_published=True).select_related("cat")
 
 
 # def get_category(request, category_id):
 #     news = NewsEvents.objects.filter(cat_id=category_id)
 #     category = Category.objects.get(pk=category_id)
-#     return render(request, 'events/category.html', {'news': news, 'category': category})
+#     return render(request, "events/category.html", {"news": news, "category": category})
 
 
 class ViewNews(DetailView):
@@ -69,10 +71,12 @@ class ViewNews(DetailView):
 #     return render(request, "events/view_news.html", {"news_item": news_item})
 
 
-class CreateNews(CreateView):
+class CreateNews(LoginRequiredMixin, CreateView):
     form_class = NewsForm
     template_name = "events/add_news.html"
     # success_url = reverse_lazy("home")
+    login_url = "/admin/"
+    # raise_exception = True
 
 
 # def add_news(request):
@@ -85,4 +89,4 @@ class CreateNews(CreateView):
 #             return redirect(news)
 #     else:
 #         form = NewsForm()
-#     return render(request, 'events/add_news.html', {"form": form})
+#     return render(request, "events/add_news.html", {"form": form})

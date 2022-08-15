@@ -1,13 +1,24 @@
-<div class="list-group">
-    <!-- {{ arg1 }} : {{ arg2 }} -->
-    {% for item in categories %}
-    <div class="card mt-3">
-      <a
-        href="{{ item.get_absolute_url }}"
-        class="list-group-item list-group-item-action"
-      >
-        {{ item.name }}
-      </a>
+<!-- <div class="list-group">
+  {{ arg1 }} : {{ arg2 }}
+  {% for item in categories %}
+  <div class="card mt-3">
+    <a
+      href="{{ item.get_absolute_url }}"
+      class="list-group-item list-group-item-action"
+    >
+      {{ item.name }} {{ item.cnt }}
+    </a>
+  </div>
+  {% endfor %}
+</div> -->
+
+<ol class="list-group list-group-numbered mt-3">
+  {% for item in categories %}
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <a href="{{ item.get_absolute_url }}" class="fw-bold">{{ item.name }}</a>
     </div>
-    {% endfor %}
-</div>
+    <span class="badge bg-primary rounded-pill">{{ item.cnt }}</span>
+  </li>
+  {% endfor %}
+</ol>
