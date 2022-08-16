@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+Реєстрація : {{block.super }}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'include/_sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Реєстрація</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Реєстрація</button>
+</form>
+
+{% endblock %}

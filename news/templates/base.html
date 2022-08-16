@@ -25,7 +25,12 @@
         </div>
         <!-- Правая колонка -->
         <div class="col-md-9">
+          {% include 'include/_messages.html' %}
           {% block content %}_content{% endblock %}
+        <!-- Пагенация -->
+        {% if page_obj.has_other_pages %}
+          {% include 'include/_paginator.html' %}
+        {% endif %}
         </div>
       </div>
     </div>

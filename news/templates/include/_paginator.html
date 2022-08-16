@@ -1,0 +1,31 @@
+<nav aria-label="Page navigation example">
+  <ul class="pagination mt-3">
+
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" ><<
+        </a>
+          </li>
+    {% endif %}
+
+    {% for item in page_obj.paginator.page_range %}
+      {% if page_obj.number == item %}
+        <li class="page-item active" aria-current="page">
+          <a class="page-link" href="?page={{ item }}">{{ item }}</a>
+        </li>
+      {% elif item > page_obj.number|add:-3 and item < page_obj.number|add:3 %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ item }}">{{ item }}</a>
+      </li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}" >>>
+        </a>
+      </li>
+    {% endif %}
+
+  </ul>
+</nav>

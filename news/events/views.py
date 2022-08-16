@@ -6,10 +6,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 
 from .models import NewsEvents, Category
-from .form import NewsForm
+from .form import NewsForm, UserRegisterForm
 from .utils import DataMixin
 
 # Create your views here.
@@ -20,6 +21,7 @@ class HomeNews(DataMixin, ListView):
     # template_name = "events/index.html"
     context_object_name = "news"
     # extra_context = {"title": "ІНФОРМАЦІЙНЕ АГЕНТСТВ"}
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -43,6 +45,7 @@ class NewsByCategory(DataMixin, ListView):
     template_name = "events/category.html"
     context_object_name = "news"
     allow_empty = False
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -90,3 +93,20 @@ class CreateNews(LoginRequiredMixin, CreateView):
 #     else:
 #         form = NewsForm()
 #     return render(request, "events/add_news.html", {"form": form})
+
+def register(request):
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Реєстрація пройшла успішно")
+            return redirect('login')
+        else:
+            messages.success(request, "Помилка реєстрація")
+    else:
+        form = UserRegisterForm()
+    return render(request, "events/register.html", {"form": form})
+
+
+def login(request):
+    return render(request, "events/login.html")
