@@ -3,3 +3,4 @@ venv
 */*.pyc
 */*.djcache
 __pycache__
+django_cache

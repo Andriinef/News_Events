@@ -10,9 +10,9 @@ class NewsEvents(models.Model):
                             db_index=True, verbose_name="URL")
     content = models.TextField(blank=True, verbose_name="Текст статті")
     created_at = models.DateTimeField(
-        auto_now=True, verbose_name="Час публікації")
+        auto_now_add=True, verbose_name="Час публікації")
     updated_at = models.DateTimeField(
-        auto_now_add=True, verbose_name="Час зміни")
+        auto_now=True, verbose_name="Час зміни")
     photo = models.ImageField(
         upload_to='photos/%Y/%m/%d/', verbose_name="Фото", blank=True)
     is_published = models.BooleanField(default=True, verbose_name="Публікація")

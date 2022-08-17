@@ -1,16 +1,15 @@
-from asyncio import events
-from gc import get_objects
-from multiprocessing import context
-from urllib import request
+from ast import Return
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.contrib import messages
+from django. contrib.auth import login, logout
 
 
 from .models import NewsEvents, Category
-from .form import NewsForm, UserRegisterForm
+from .form import NewsForm, UserRegisterForm, UserLoginForm
 from .utils import DataMixin
 
 # Create your views here.
@@ -98,9 +97,10 @@ def register(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             messages.success(request, "Реєстрація пройшла успішно")
-            return redirect('login')
+            return redirect("home")
         else:
             messages.success(request, "Помилка реєстрація")
     else:
@@ -108,5 +108,18 @@ def register(request):
     return render(request, "events/register.html", {"form": form})
 
 
-def login(request):
-    return render(request, "events/login.html")
+def user_login(request):
+    if request.method == "POST":
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect("home")
+    else:
+        form = UserLoginForm()
+    return render(request, "events/login.html", {"form": form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect("login")

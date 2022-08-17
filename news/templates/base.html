@@ -21,7 +21,10 @@
       <div class="row">
         <!-- Левая колонка -->
         <div class="col-md-3">
+          {% load cache %}
+          {% cache 120 sidebar %}
           {% block sidebar %}_sidebar{% endblock %}
+          {% endcache %}
         </div>
         <!-- Правая колонка -->
         <div class="col-md-9">

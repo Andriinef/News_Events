@@ -1,8 +1,17 @@
 from django.contrib import admin
-
-# Register your models here.
 from django.utils.safestring import mark_safe
-from .models import *
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from django import forms
+
+from .models import NewsEvents, Category
+
+
+class NewsAdminForm(forms.ModelForm):
+    content = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = NewsEvents
+        fields = '__all__'
 
 
 class NewsAdmin(admin.ModelAdmin):
@@ -16,6 +25,7 @@ class NewsAdmin(admin.ModelAdmin):
               "photo", "get_html_photo", "views", "is_published", "created_at", "updated_at")
     readonly_fields = ("get_html_photo", "views", "created_at", "updated_at")
     save_on_top = True
+    form = NewsAdminForm
 
     def get_html_photo(self, object):
         if object.photo:

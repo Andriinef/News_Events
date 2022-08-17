@@ -26,17 +26,12 @@
         </li>
         {% endif %}
       </ul>
-      <!-- <form class="d-flex" role="пошук">
-        <input
-          class="form-control me-2"
-          type="пошук"
-          placeholder="Пошук"
-          aria-label="Пошук"
-        />
-        <button class="btn btn-outline-success" type="submit">Пошук</button>
-      </form> -->
       <span class="navbar-text">
+        {% if request.user.is_authenticated %}
+        {{ user.username }} | <a href="{% url 'logout' %}">Вихiд</a>
+        {% else %}
         <a href="{% url 'register' %}">Реєстрація</a> | <a href="{% url 'login' %}">Вхiд</a>
+        {% endif %}
       </span>
     </div>
   </div>
