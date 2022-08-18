@@ -1,4 +1,3 @@
-from ast import Return
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
@@ -48,11 +47,11 @@ class NewsByCategory(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = Category.objects.get(pk=self.kwargs["category_id"])
+        context["title"] = Category.objects.get(slug=self.kwargs["cat_slug"])
         return context
 
     def get_queryset(self):
-        return NewsEvents.objects.filter(cat_id=self.kwargs["category_id"], is_published=True).select_related("cat")
+        return NewsEvents.objects.filter(cat__slug=self.kwargs["cat_slug"], is_published=True).select_related("cat")
 
 
 # def get_category(request, category_id):

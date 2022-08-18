@@ -26,14 +26,18 @@
           {% block sidebar %}_sidebar{% endblock %}
           {% endcache %}
         </div>
-        <!-- Правая колонка -->
-        <div class="col-md-9">
+        <!-- Центральная колонка -->
+        <div class="col-md-7">
           {% include 'include/_messages.html' %}
           {% block content %}_content{% endblock %}
-        <!-- Пагенация -->
-        {% if page_obj.has_other_pages %}
-          {% include 'include/_paginator.html' %}
-        {% endif %}
+          <!-- Пагенация -->
+          {% if page_obj.has_other_pages %}
+            {% include 'include/_paginator.html' %}
+          {% endif %}
+        </div>
+        <!-- Правая колонка -->
+        <div class="col">
+          {% include 'include/_advertising.html' %}
         </div>
       </div>
     </div>
@@ -43,5 +47,6 @@
       integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
       crossorigin="anonymous"
     ></script>
+      {% include 'include/_footer.html' %}
   </body>
 </html>

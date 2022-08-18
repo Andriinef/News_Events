@@ -11,14 +11,15 @@
   </div>
   {% endfor %}
 </div> -->
-
-<ol class="list-group list-group-numbered mt-3">
-  {% for item in categories %}
-  <li class="list-group-item d-flex justify-content-between align-items-start">
+<div class="{{ category_class }}">
+  <ol class="list-group list-group-numbered mt-3">
+    {% for item in categories %}
+    <li class="list-group-item d-flex justify-content-between align-items-start">
     <div class="ms-2 me-auto">
-      <a href="{{ item.get_absolute_url }}" class="fw-bold">{{ item.name }}</a>
+        <a href="{{ item.get_absolute_url }}" class="fw-bold">{{ item.name }}</a>
     </div>
-    <span class="badge bg-primary rounded-pill">{{ item.cnt }}</span>
-  </li>
-  {% endfor %}
-</ol>
+      <span class="badge bg-primary rounded-pill">{{ item.cnt }}</span>
+    </li>
+    {% endfor %}
+  </ol>
+</div>

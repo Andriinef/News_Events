@@ -1,8 +1,6 @@
 from django.db import models
 from django.urls import reverse
 
-# Create your models here.
-
 
 class NewsEvents(models.Model):
     title = models.CharField(max_length=250, verbose_name="Заголовок")
@@ -14,22 +12,25 @@ class NewsEvents(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True, verbose_name="Час зміни")
     photo = models.ImageField(
-        upload_to='photos/%Y/%m/%d/', verbose_name="Фото", blank=True)
+        upload_to="photos/%Y/%m/%d/", verbose_name="Фото", blank=True)
     is_published = models.BooleanField(default=True, verbose_name="Публікація")
     cat = models.ForeignKey(
-        'Category', on_delete=models.PROTECT, verbose_name="Категорії")
+        "Category", on_delete=models.PROTECT, verbose_name="Категорії")
     views = models.IntegerField(default=0)
 
+    def __unicode__(self):
+        return self.title
+
     def get_absolute_url(self):
-        return reverse("view_news", kwargs={"pk": self.pk})
+        return reverse("view_news", kwargs={"slug": self.slug})
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = "Новини"
+        verbose_name = "новини"
         verbose_name_plural = "Новини"
-        ordering = ['-created_at', 'id']
+        ordering = ["-created_at", "id"]
 
 
 class Category(models.Model):
@@ -39,7 +40,7 @@ class Category(models.Model):
                             db_index=True, verbose_name="URL")
 
     def get_absolute_url(self):
-        return reverse("category", kwargs={"category_id": self.pk})
+        return reverse("category", kwargs={"cat_slug": self.slug})
 
     def __str__(self):
         return self.name
@@ -47,4 +48,4 @@ class Category(models.Model):
     class Meta:
         verbose_name = "категорії"
         verbose_name_plural = "Категорії"
-        ordering = ['id']
+        ordering = ["id"]

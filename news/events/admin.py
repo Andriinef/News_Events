@@ -25,11 +25,12 @@ class NewsAdmin(admin.ModelAdmin):
               "photo", "get_html_photo", "views", "is_published", "created_at", "updated_at")
     readonly_fields = ("get_html_photo", "views", "created_at", "updated_at")
     save_on_top = True
+    # save_as = True
     form = NewsAdminForm
 
     def get_html_photo(self, object):
         if object.photo:
-            return mark_safe(f"<img src='{object.photo.url}' width = 50")
+            return mark_safe(f"<img src='{object.photo.url}' width = 50>")
 
     get_html_photo.short_description = "Мініатюра"
 

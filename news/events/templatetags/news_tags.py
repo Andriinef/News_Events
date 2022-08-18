@@ -12,8 +12,8 @@ def get_categories():
 
 
 @register.inclusion_tag("events/list_categories.html")
-def show_categories(arg1, arg2):
+def show_categories(category_class="category"):
     # categories = Category.objects.all()
     categories = Category.objects.annotate(cnt=Count(
         'newsevents', filter=F("newsevents__is_published"))).filter(cnt__gt=0)
-    return {"categories": categories, "arg1": arg1, "arg2": arg2}
+    return {"categories": categories, "category_class": category_class}

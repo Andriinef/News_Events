@@ -9,7 +9,7 @@
     {% if item.photo %}
     <img
       src="{{ item.photo.url }}"
-      alt=""
+      alt="{{ item.title }}"
       width="350"
       class="float-left mr-3"
     />
@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="card-footer text-muted">
-    {{ item.created_at|date:"d-m-Y H:i" }}
+    {{ item.created_at|date:"H:i, d F Y" }}
   </div>
 </div>
 {% endfor %}
