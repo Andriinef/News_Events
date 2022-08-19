@@ -15,10 +15,10 @@
     <!-- Начало navbar -->
 {% include 'include/_navbar.html' %}
     <!-- Начало контекста -->
-<div class="container mt-3">
+<div class="container mt-2">
     <div class="row">
         <!-- Левая колонка -->
-        <div class="col-md-2">
+        <div class="col-md-1">
           {% block advertising %}{% endblock %}
         </div>
         <!-- Центральная колонка -->
@@ -29,7 +29,7 @@
           {% endcache %}
         </div>
         <!-- Правая колонка -->
-        <div class="col-md-7">
+        <div class="col-md-8">
           {% include 'include/_messages.html' %}
           {% block content %}_content{% endblock %}
           <!-- Пагенация -->
