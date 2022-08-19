@@ -25,6 +25,10 @@
   </div>
   <div class="card-footer text-muted">
     {{ item.created_at|date:"H:i, d F Y" }}
+    {% empty %}
+    <p class="card-text">
+      На ваш запит нічого не знайдено...
+    </p>
   </div>
 </div>
 {% endfor %}

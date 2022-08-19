@@ -4,11 +4,11 @@ html, body {
 	padding: 0;
 	height: 100%;
 	width: 100%;
-	color: #444;
+	color: rgb(243, 238, 238);
 }
 
 a {
-	color: #0059b2;
+	color: #000204;
 	text-decoration: none;
 }
 a:hover {
@@ -81,7 +81,7 @@ ul.list-articles li {
 }
 
 .logo {
-	background-color:#000
+	background-color:#000;
 	background: url('../images/logo.png') no-repeat 10px 5px;
 	width: 70px;
 	height: 60px;

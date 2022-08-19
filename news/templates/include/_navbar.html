@@ -26,7 +26,11 @@
         </li>
         {% endif %}
       </ul>
-      <span class="navbar-text">
+      <form class="d-flex me-5" action="{% url 'search' %}" method="get">
+        <input class="form-control me-2" type="text" name="sear" placeholder="Пошук..." aria-label="Пошук">
+        <button class="btn btn-outline-success" type="submit">Пошук</button>
+      </form>
+      <span class="navbar-text me-3">
         {% if request.user.is_authenticated %}
         {{ user.username }} | <a href="{% url 'logout' %}">Вихiд</a>
         {% else %}

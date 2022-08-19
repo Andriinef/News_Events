@@ -1,10 +1,12 @@
+from turtle import title
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.contrib import messages
-from django. contrib.auth import login, logout
+from django.contrib.auth import login, logout
+from django.db.models import F
 
 
 from .models import NewsEvents, Category
@@ -16,7 +18,7 @@ from .utils import DataMixin
 
 class HomeNews(DataMixin, ListView):
     model = NewsEvents
-    # template_name = "events/index.html"
+    template_name = "events/index.html"
     context_object_name = "news"
     # extra_context = {"title": "ІНФОРМАЦІЙНЕ АГЕНТСТВ"}
     paginate_by = 2
@@ -64,6 +66,13 @@ class ViewNews(DetailView):
     model = NewsEvents
     context_object_name = "news_item"
     # pk_url_kwarg = "news_id"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.object.views = F("views") + 1
+        self.object.save()
+        self.object.refresh_from_db()
+        return context
 
 
 # def view_news(request, news_id):
@@ -122,3 +131,17 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect("login")
+
+
+class Search(ListView):
+    template_name = "events/search.html"
+    context_object_name = "news"
+    paginate_by = 4
+
+    def get_queryset(self):
+        return NewsEvents.objects.filter(title__icontains=self.request.GET.get("sear"))
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["sear"] = f"sear={self.request.GET.get('sear')}&"
+        return context
