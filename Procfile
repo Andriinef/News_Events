@@ -1,1 +1,1 @@
-web: gunicorn -w 4 -b -k gevent main:app
+web: gunicorn news.wsgi
