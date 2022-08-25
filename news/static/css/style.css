@@ -1,0 +1,9 @@
+body {
+  padding: 20px;
+  letter-spacing: 2px;
+  padding: 10px 10px 10px 10px;
+  background-image: radial-gradient(circle at 3% 50%, red, rgb(0, 0, 0));
+}
+a {
+  color: red;
+}
