@@ -8,5 +8,4 @@ Pillow==9.2.0
 psycopg2-binary==2.9.3
 pycodestyle==2.9.1
 sqlparse==0.4.2
-toml==0.10.2
-gunicorn
+toml==0.10.2sudo apt-get install python3-tk 

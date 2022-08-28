@@ -1,0 +1,8 @@
+venv
+.idea
+*/*.pyc
+*/*.djcache
+__pycache__
+django_cache
+.gitignore
+.git
