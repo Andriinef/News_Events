@@ -21,7 +21,7 @@ class HomeNews(DataMixin, ListView):
     template_name = "events/index.html"
     context_object_name = "news"
     # extra_context = {"title": "ІНФОРМАЦІЙНЕ АГЕНТСТВ"}
-    paginate_by = 2
+    paginate_by = 1
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -45,7 +45,7 @@ class NewsByCategory(DataMixin, ListView):
     template_name = "events/category.html"
     context_object_name = "news"
     allow_empty = False
-    paginate_by = 2
+    paginate_by = 1
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

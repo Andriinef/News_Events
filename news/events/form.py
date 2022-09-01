@@ -10,8 +10,7 @@ from django.contrib.auth.models import User
 #     title = forms.CharField(max_length=150, label="Назва", widget=forms.TextInput(
 #         attrs={"class": "form-control"}))
 #     content = forms.CharField(label="Текст", required=False, widget=forms.Textarea(
-#         attrs={"class": "form-control",
-#             "rows": 5}))
+#         attrs={"class": "form-control", "rows": 5}))
 #     is_published = forms.BooleanField(label="Опубліковувати", initial=True)
 #     cat = forms.ModelChoiceField(
 #         empty_label="Оберіть категорію", label="Категорії", queryset=Category.objects.all(),

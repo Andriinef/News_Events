@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-^(1r&-i_$ggm*ok0kmy&+g-ye(li$jr1x9cnsamef$$gl(#5eu
 # SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", ".herokuapp.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -84,21 +84,21 @@ DATABASES = {
     #         "NAME": BASE_DIR / "db.sqlite3",
     #     }
     # }
-    # "default": {
-    #     "ENGINE": "django.db.backends.postgresql",
-    #     "NAME": "news_events",
-    #     "USER": "andrii",
-    #     "PASSWORD": "5048",
-    #     "HOST": "localhost",
-    #     "PORT": "",
-    # }
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "HOST": os.environ.get("DB_HOST"),
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASS"),
+        "NAME": "news_events",
+        "USER": "andrii",
+        "PASSWORD": "5048",
+        "HOST": "localhost",
+        "PORT": "",
     }
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "HOST": os.environ.get("DB_HOST"),
+    #     "NAME": os.environ.get("DB_NAME"),
+    #     "USER": os.environ.get("DB_USER"),
+    #     "PASSWORD": os.environ.get("DB_PASS"),
+    # }
 }
 
 
@@ -136,11 +136,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "news")
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [STATIC_DIR]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -152,7 +151,7 @@ MEDIA_URL = "/media/"
 
 INTERNAL_IPS = [
     # ...
-    "127.0.0.1",
+    "*",
     # ...
 ]
 
@@ -166,9 +165,12 @@ CKEDITOR_CONFIGS = {
             ["Source", "-", "Bold", "Italic"]
         ],
         "toolbar_YourCustomToolbarConfig": [
-            {"name": "document", "items": ["Source", "-", "Save", "NewPage", "Preview", "Print", "-", "Templates"]},
-            {"name": "clipboard", "items": ["Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "-", "Undo", "Redo"]},
-            {"name": "editing", "items": ["Find", "Replace", "-", "SelectAll"]},
+            {"name": "document", "items": [
+                "Source", "-", "Save", "NewPage", "Preview", "Print", "-", "Templates"]},
+            {"name": "clipboard", "items": [
+                "Cut", "Copy", "Paste", "PasteText", "PasteFromWord", "-", "Undo", "Redo"]},
+            {"name": "editing", "items": [
+                "Find", "Replace", "-", "SelectAll"]},
             {"name": "forms",
              "items": ["Form", "Checkbox", "Radio", "TextField", "Textarea", "Select", "Button", "ImageButton",
                        "HiddenField"]},
@@ -183,7 +185,8 @@ CKEDITOR_CONFIGS = {
             {"name": "insert",
              "items": ["Image", "Flash", "Table", "HorizontalRule", "Smiley", "SpecialChar", "PageBreak", "Iframe"]},
             "/",
-            {"name": "styles", "items": ["Styles", "Format", "Font", "FontSize"]},
+            {"name": "styles", "items": [
+                "Styles", "Format", "Font", "FontSize"]},
             {"name": "colors", "items": ["TextColor", "BGColor"]},
             {"name": "tools", "items": ["Maximize", "ShowBlocks"]},
             {"name": "about", "items": ["About"]},
@@ -205,7 +208,7 @@ CKEDITOR_CONFIGS = {
         # "mathJaxLib": "//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML",
         "tabSpaces": 4,
         "extraPlugins": ",".join([
-            "uploadimage", # the upload image feature
+            "uploadimage",  # the upload image feature
             # your extra plugins here
             "div",
             "autolink",

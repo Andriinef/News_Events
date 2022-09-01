@@ -8,7 +8,7 @@ from .views import *
 urlpatterns = [
     # path("", index, name="home"),
     # path("", HomeNews.as_view(), name="home"),
-    path("", cache_page(60) (HomeNews.as_view()), name="home"),
+    path("",(HomeNews.as_view()), name="home"),
     # path("category/<slug:cat_slug>/", get_category, name="category"),
     path("category/<slug:cat_slug>/", NewsByCategory.as_view(), name="category"),
     # path("news/<int:news_id>/", view_news, name="view_news"),
