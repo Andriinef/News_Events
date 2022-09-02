@@ -43,7 +43,6 @@ class HomeNews(DataMixin, ListView):
 class NewsByCategory(DataMixin, ListView):
     model = NewsEvents
     template_name = "events/category.html"
-    context_object_name = "news"
     allow_empty = False
     paginate_by = 1
 

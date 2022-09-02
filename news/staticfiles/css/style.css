@@ -1,6 +1,11 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
 body {
-  letter-spacing: 2px;
-  padding: 10px 10px 10px 10px;
+  width: 100%;
+  height: 100%;
   background-image: radial-gradient(circle at 5% 50%, yellow, blue);
 }
 h1,
@@ -8,6 +13,9 @@ h2,
 h3 {
   font-family: Arial, Helvetica, Verdana;
   text-align: center;
+}
+a {
+  color: #000;
 }
 p {
   font-size: 1.2em;
@@ -17,24 +25,30 @@ p {
   /* text-transform: uppercase; */
   /* font-variant: small-caps; */
   /* text-decoration: underline; */
-  letter-spacing: 1px;
+  /* letter-spacing: 1px;*/
   word-spacing: 3px;
   text-indent: 50px;
   text-align: justify;
 }
-a {
-  color: #000;
+container {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
 }
-footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  position: absolute;
+wrapper {
   position: relative;
+  min-height: 100%;
+}
+content {
+  padding-bottom: 90px;
+}
+/* .footer {
+  position: relative;
+  position: absolute;
+  left: 0;
   bottom: 0;
   width: 100%;
-  /* height: 60px; */
-  /* line-height: 60px; */
-  color: aliceblue;
+  height: 100px;
   background-color: #000;
-}
+} */
