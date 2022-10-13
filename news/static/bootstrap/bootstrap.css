@@ -4238,7 +4238,7 @@ fieldset:disabled .btn {
     flex-grow: 1;
     width: auto !important;
     height: auto !important;
-    visibility:D visible !important;
+    visibility: D visible !important;
     background-color: transparent !important;
     border: 0 !important;
     transform: none !important;
@@ -8353,6 +8353,7 @@ fieldset:disabled .btn {
 }
 
 .fw-bold {
+  color: #000;
   font-weight: 700 !important;
 }
 
